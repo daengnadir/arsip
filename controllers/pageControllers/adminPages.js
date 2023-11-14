@@ -37,7 +37,7 @@ const dashboardAdminPage = async (req, res) => {
             console.log(err);
             res.send("Error")
         }else{
-            res.render('admin/login', { title: "Express", logout : "logout Successfully...!", status: "none"})
+            res.render('admin/login', { title: "SIAP || Sistem Informasi Arsip Perencanaan", logout : "logout Successfully...!", status: "none"})
         }
     })
   

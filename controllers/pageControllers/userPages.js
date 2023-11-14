@@ -25,7 +25,7 @@ const dashboardUserPage = async (req, res) => {
             console.log(err);
             res.send("Error")
         }else{
-            res.render('user/login', { title: "Express", logout : "logout Successfully...!", status: "none"})
+            res.render('user/login', { title: "Sistem Informasi Arsip Perencanaan", logout : "logout Successfully...!", status: "none"})
         }
     })
   
