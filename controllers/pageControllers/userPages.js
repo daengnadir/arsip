@@ -1,4 +1,4 @@
-const {User} = require('../../models');
+const {User, Admin} = require('../../models');
 
 const loginUserPage = async (req, res) => {
     try {
@@ -48,9 +48,21 @@ const dashboardUserPage = async (req, res) => {
     }
   }
 
+  const uploadUserPage = async (req, res) => {
+    const dataUser = await User.findByPk(req.session.an)
+    try {
+      res.render("user/upload", {user : req.session.userName, dataUser, id: req.session.an, link: "3", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      })
+    }
+  }
+
 module.exports = {
   loginUserPage,
   dashboardUserPage,  
   logoutUserPage,
   profileUserPage,
+  uploadUserPage,
 }

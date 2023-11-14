@@ -276,6 +276,163 @@ const login = async (req, res) => {
     }
   }
 
+  const uploadFile = async (req, res) => {
+    try {
+      console.log(req.file)
+      if (req.file == undefined) {
+        return res.redirect(
+          "/users/upload/?status=failed&message=Format file salah"
+        );
+      }
+      fetch(
+        `https://www.filestackapi.com/api/store/S3?key=AqRahS1muTYmqlxtT9AY9z&filename=${req.file.originalname}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/pdf" },
+          body: req.file.buffer,
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+           User.update(
+            {
+              rencanaKerja: r.url,
+    
+            },
+            {
+              where: { id: req.params.id, },
+            })
+          });
+      const delay = 8000; // 8 seconds
+      setTimeout(() => {
+        res.redirect(
+          "/users/upload/?status=success&message=Upload File Berhasil"
+        );
+      }, delay);
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      });
+    }
+  }
+  const uploadFile1 = async (req, res) => {
+    try {
+      console.log(req.file)
+      if (req.file == undefined) {
+        return res.redirect(
+          "/users/upload/?status=failed&message=Format file salah"
+        );
+      }
+      fetch(
+        `https://www.filestackapi.com/api/store/S3?key=AqRahS1muTYmqlxtT9AY9z&filename=${req.file.originalname}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/pdf" },
+          body: req.file.buffer,
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+           User.update(
+            {
+              lakip: r.url,
+    
+            },
+            {
+              where: { id: req.params.id, },
+            })
+          });
+      const delay = 8000; // 8 seconds
+      setTimeout(() => {
+        res.redirect(
+          "/users/upload/?status=success&message=Upload File Berhasil"
+        );
+      }, delay);
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      });
+    }
+  }
+  const uploadFile2 = async (req, res) => {
+    try {
+      console.log(req.file)
+      if (req.file == undefined) {
+        return res.redirect(
+          "/users/upload/?status=failed&message=Format file salah"
+        );
+      }
+      fetch(
+        `https://www.filestackapi.com/api/store/S3?key=AqRahS1muTYmqlxtT9AY9z&filename=${req.file.originalname}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+          body: req.file.buffer,
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+           User.update(
+            {
+              evaluasiRenja: r.url,
+    
+            },
+            {
+              where: { id: req.params.id, },
+            })
+          });
+      const delay = 8000; // 8 seconds
+      setTimeout(() => {
+        res.redirect(
+          "/users/upload/?status=success&message=Upload File Berhasil"
+        );
+      }, delay);
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      });
+    }
+  }
+  const uploadFile3 = async (req, res) => {
+    try {
+      console.log(req.file)
+      if (req.file == undefined) {
+        return res.redirect(
+          "/users/upload/?status=failed&message=Format file salah"
+        );
+      }
+      fetch(
+        `https://www.filestackapi.com/api/store/S3?key=AqRahS1muTYmqlxtT9AY9z&filename=${req.file.originalname}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/pdf" },
+          body: req.file.buffer,
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+           User.update(
+            {
+              spip: r.url,
+    
+            },
+            {
+              where: { id: req.params.id, },
+            })
+          });
+      const delay = 8000; // 8 seconds
+      setTimeout(() => {
+        res.redirect(
+          "/users/upload/?status=success&message=Upload File Berhasil"
+        );
+      }, delay);
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      });
+    }
+  }
+
 module.exports = {
     login,
     loginUsers,
@@ -285,4 +442,8 @@ module.exports = {
     activeUserById,
     nonActiveUserById,
     updateUserById,
+    uploadFile,
+    uploadFile1,
+    uploadFile2,
+    uploadFile3,
 }

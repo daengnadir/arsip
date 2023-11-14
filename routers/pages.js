@@ -9,7 +9,7 @@ router.get('/users/dashboard', user, userPageControllers.dashboardUserPage)
 // router.get('/about', userPageControllers.aboutPage)
 router.get('/', userPageControllers.loginUserPage)
 router.get('/users/profile', userPageControllers.profileUserPage)
-// router.get('/users/dashboard', userPageControllers.dashboardUserPage)
+router.get('/users/upload', userPageControllers.uploadUserPage)
 router.get('/users/logout', userPageControllers.logoutUserPage)
 
 

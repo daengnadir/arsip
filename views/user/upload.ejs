@@ -33,33 +33,253 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                       <h5 class="mb-0">Upload Berkas</h5>
                     </div>
-                    <div class="card-body">
-                      <form action="/updateUser/<%- dataUser.id %>" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">Username</label>
-                          <input required ="text" name="userName" class="form-control" id="basic-default-fullname" value="<%= dataUser.userName %>" />
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Rencana Kerja</h5>
+                            <p class="card-text">Bentuk file yang diterima pdf</p>
+                            <div class="row g-2">
+                            <div class="col mb-0">
+                              <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter">
+                              Upload
+                            </button>
+                            </div>
+                            <% if (dataUser.rencanaKerja == undefined) { %>
+                            <div style="display: none;" class="col mb-0">
+                              <a href="<%= dataUser.rencanaKerja %>" target="_blank">
+                                <button type="button" class="btn btn-secondary">Lihat File</button>
+                              </a>
+                            </div>
+                            <% } else { %>
+                              <div class="col mb-0">
+                                <a href="<%= dataUser.rencanaKerja %>" target="_blank">
+                                  <button type="button" class="btn btn-secondary">Lihat File</button>
+                                </a>
+                              </div>
+                              <% } %> 
+                            </div>
+                           
+                          
+                        <!-- Modal -->
+                        <form action="/upload/<%=dataUser.id %>" method="post" enctype="multipart/form-data">
+                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Berkas Rencana Kerja</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="formFile" class="form-label">Upload Berkas</label>
+                                    <input required class="form-control" name="pdf" type="file" id="formFile" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-company">Email</label>
-                          <input required type="text" name="email" class="form-control" id="basic-default-company" value="<%= dataUser.email %>" />
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-phone">Password</label>
-                          <input
-                           required
-                            name="password"
-                            type="text"
-                            id="basic-default-phone"
-                            class="form-control"
-                            placeholder="********" />
-                        </div>
-                        <div class="mb-3">
-                          <label for="formFile" class="form-label">Upload Gambar</label>
-                          <input required class="form-control" name="image" type="file" id="formFile" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
                       </form>
-                    </div>
+                        <!-- modal -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">LAKIP</h5>
+                            <p class="card-text">Bentuk file yang diterima pdf</p>
+                            <div class="row g-2">
+                              <div class="col mb-0">
+                                <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCenter2">
+                                Upload
+                              </button>
+                              </div>
+                              <% if (dataUser.lakip == undefined) { %>
+                              <div style="display: none;" class="col mb-0">
+                                <a href="<%= dataUser.lakip %>" target="_blank">
+                                  <button type="button" class="btn btn-secondary">Lihat File</button>
+                                </a>
+                              </div>
+                              <% } else { %>
+                                <div class="col mb-0">
+                                  <a href="<%= dataUser.lakip %>" target="_blank">
+                                    <button type="button" class="btn btn-secondary">Lihat File</button>
+                                  </a>
+                                </div>
+                                <% } %> 
+                              </div>
+                               <!-- Modal -->
+                        <form action="/upload1/<%=dataUser.id %>" method="post" enctype="multipart/form-data">
+                        <div class="modal fade" id="modalCenter2" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Berkas LAKIP</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="formFile" class="form-label">Upload Berkas</label>
+                                    <input required class="form-control" name="pdf" type="file" id="formFile" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </form>
+                        <!-- modal -->
+                                                      </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Evaluasi Renja</h5>
+                            <p class="card-text">Bentuk file yang diterima excel</p>
+                            <div class="row g-2">
+                              <div class="col mb-0">
+                                <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCenter3">
+                                Upload
+                              </button>
+                              </div>
+                              <% if (dataUser.evaluasiRenja == undefined) { %>
+                              <div style="display: none;" class="col mb-0">
+                                <a href="<%= dataUser.evaluasiRenja %>" target="_blank">
+                                  <button type="button" class="btn btn-secondary">Lihat File</button>
+                                </a>
+                              </div>
+                              <% } else { %>
+                                <div class="col mb-0">
+                                  <a href="<%= dataUser.evaluasiRenja %>" target="_blank">
+                                    <button type="button" class="btn btn-secondary">Lihat File</button>
+                                  </a>
+                                </div>
+                                <% } %> 
+                              </div> 
+                                <!-- Modal -->
+                        <form action="/upload2/<%=dataUser.id %>" method="post" enctype="multipart/form-data">
+                        <div class="modal fade" id="modalCenter3" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Berkas Evaluasi Renja</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="formFile" class="form-label">Upload Berkas</label>
+                                    <input required class="form-control" name="pdf" type="file" id="formFile" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                        <!-- modal -->
+                                                     </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Dokumen Pendukung SPIP</h5>
+                            <p class="card-text">Bentuk file yang diterima pdf</p>
+                            <div class="row g-2">
+                              <div class="col mb-0">
+                                <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCenter4">
+                                Upload
+                              </button>
+                              </div>
+                              <% if (dataUser.spip == undefined) { %>
+                              <div style="display: none;" class="col mb-0">
+                                <a href="<%= dataUser.spip %>" target="_blank">
+                                  <button type="button" class="btn btn-secondary">Lihat File</button>
+                                </a>
+                              </div>
+                              <% } else { %>
+                                <div class="col mb-0">
+                                  <a href="<%= dataUser.spip %>" target="_blank">
+                                    <button type="button" class="btn btn-secondary">Lihat File</button>
+                                  </a>
+                                </div>
+                                <% } %> 
+                              </div> 
+                                <!-- Modal -->
+                                <form action="/upload3/<%=dataUser.id %>" method="post" enctype="multipart/form-data">
+                        <div class="modal fade" id="modalCenter4" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Berkas Dokumen Pendukung SPIP</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-3">
+                                    <label for="formFile" class="form-label">Upload Berkas</label>
+                                    <input required class="form-control" name="pdf" type="file" id="formFile" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                                </form>
+                        <!-- modal -->                          </div>
+                        </div>
+                      </div>
+                    </div> 
                   </div>
                 </div>
                 <!-- <div class="col-xl">
