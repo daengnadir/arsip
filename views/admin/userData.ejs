@@ -30,16 +30,29 @@
                             <!-- <i class="bx bxl-angular bx-sm text-danger me-3"></i> -->
                             <span class="fw-medium"> <%= user.userName %></span>
                           </td>
-                          <td> <%= user.email %></td>
-                          <td><span class="badge bg-label-danger me-1">Belum Aktif</span></td>
+                          <td> <%= user.email %></td>    
+                          <% if (user.active == false) { %>
+                            <td><span class="badge bg-label-danger me-1">Belum Aktif</span></td> 
+                        <% } else if (user.active == true) { %>
+                          <td><span class="badge bg-label-success me-1">Aktif</span></td> 
+                          <% } %>
                           <td>
                             <div class="dropdown">
                               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu">
+                                <% if (user.active == false) { %>
+                                <a class="dropdown-item" href="/active/<%- user.id %>"
+                                  ><i class="bx bx-edit-alt me-1"></i>Aktifkan Pengguna</a
+                                >
+                                <% } else if (user.active == true) { %>
+                                  <a class="dropdown-item" href="/nonActive/<%- user.id %>"
+                                    ><i class="bx bx-edit-alt me-1"></i>Non-Aktifkan Pengguna</a
+                                  >
+                                  <% } %>
                                 <a class="dropdown-item" href="javascript:void(0);"
-                                  ><i class="bx bx-edit-alt me-1"></i> Berkas Pengguna</a
+                                  ><i class="bx bx-table me-1"></i> Berkas Pengguna</a
                                 >
                                 <a class="dropdown-item" href="/delete/users/<%- user.id %>"
                                   ><i class="bx bx-trash me-1"></i> Delete</a

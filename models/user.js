@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     rencanaKerja: DataTypes.TEXT,
     lakip: DataTypes.TEXT,
     evaluasiRenja: DataTypes.TEXT,
-    spip: DataTypes.TEXT
+    spip: DataTypes.TEXT,
+    active:DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'User',

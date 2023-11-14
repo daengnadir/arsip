@@ -33,6 +33,10 @@ module.exports = {
       spip: {
         type: Sequelize.TEXT
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

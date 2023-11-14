@@ -20,6 +20,7 @@ module.exports = {
         password: bcrypt.hashSync("PPG123", 10),
         email: "user1@gmail.com",
         image:"https://ik.imagekit.io/wx1jhmfkq/1_K66ESN2Z8.png?updatedAt=1699756799404",
+        active: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

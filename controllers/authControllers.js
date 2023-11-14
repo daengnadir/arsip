@@ -58,6 +58,11 @@ const login = async (req, res) => {
       }
     
   
+      if (user.active == false) {
+        return res.status(401).render("user/login", {status: "failed", message: "Akun anda belum aktif"})
+      }
+    
+  
       req.session.userName = user.userName
       return res.render("user/index",  {user : req.session.userName, firstLogin: true, status: "none", link:"0"})
   
@@ -162,10 +167,52 @@ const login = async (req, res) => {
     }
   }
 
+  async function activeUserById(req, res) {
+    try {
+
+      await User.update(
+        {
+          active: true,
+
+        },
+        {
+          where: { id: req.params.id, },
+        }
+      )
+    res.redirect(
+      "/admin/data/?status=success&message=Berhasil aktivasi user"
+    );
+    } catch (error) {
+      return res.status(500).send({ message: error.message, })
+    }
+  }
+
+  async function nonActiveUserById(req, res) {
+    try {
+
+      await User.update(
+        {
+          active: false,
+
+        },
+        {
+          where: { id: req.params.id, },
+        }
+      )
+    res.redirect(
+      "/admin/data/?status=success&message=Berhasil non aktif user"
+    );
+    } catch (error) {
+      return res.status(500).send({ message: error.message, })
+    }
+  }
+
 module.exports = {
     login,
     loginUsers,
     register,
     deleteUsers,
     updateAdminById,
+    activeUserById,
+    nonActiveUserById,
 }
