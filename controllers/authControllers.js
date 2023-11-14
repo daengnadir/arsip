@@ -28,7 +28,18 @@ const login = async (req, res) => {
       req.session.userName = userName
       req.session.an = admin.id
       const dataAdmin = await Admin.findByPk(req.session.an)
-      return res.render("admin/index",  {user : req.session.userName, dataAdmin, id: req.session.an, firstLogin: true, status: "none", link: "0"})
+      const dataUser = await User.findAll()
+      const dataUserActive = await User.findAll({
+        where: {
+          active: true
+        }
+      })
+      const dataUserNonActive = await User.findAll({
+        where: {
+          active: false
+        }
+      })
+      return res.render("admin/index",  {user : req.session.userName, dataUser, dataUserActive, dataUserNonActive, dataAdmin, id: req.session.an, firstLogin: true, status: "none", link: "0"})
   
     } catch (error) {
       return res.status(500).send({ message: error.message, })

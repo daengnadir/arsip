@@ -21,8 +21,19 @@ const RegisterUserAdminPage = async (req, res) => {
 
 const dashboardAdminPage = async (req, res) => {
     try {
+      const dataUser = await User.findAll()
+      const dataUserActive = await User.findAll({
+        where: {
+          active: true
+        }
+      })
+      const dataUserNonActive = await User.findAll({
+        where: {
+          active: false
+        }
+      })
       const dataAdmin = await Admin.findByPk(req.session.an)
-      res.render("admin/index", {user : req.session.userName, dataAdmin, id: req.session.an, link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+      res.render("admin/index", {user : req.session.userName, dataUser, dataUserActive, dataUserNonActive, dataAdmin, id: req.session.an, link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
     } catch (error) {
       res.status(error.statusCode || 500).json({
         message: error.message,
