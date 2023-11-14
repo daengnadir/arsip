@@ -1,3 +1,5 @@
+const {User} = require('../../models');
+
 const loginUserPage = async (req, res) => {
     try {
       res.render("user/login", {status: "none"})
@@ -10,7 +12,8 @@ const loginUserPage = async (req, res) => {
 
 const dashboardUserPage = async (req, res) => {
     try {
-      res.render("user/index", {user : req.session.userName, link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+      const dataUser = await User.findByPk(req.session.an)
+      res.render("user/index", {user : req.session.userName, dataUser,link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
     } catch (error) {
       res.status(error.statusCode || 500).json({
         message: error.message,
@@ -34,8 +37,20 @@ const dashboardUserPage = async (req, res) => {
     }
   }
 
+  const profileUserPage = async (req, res) => {
+    try {
+      const dataUser = await User.findByPk(req.session.an)
+      res.render("user/profile", {user : req.session.userName, dataUser, id: req.session.an, link: "2", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+    } catch (error) {
+      res.status(error.statusCode || 500).json({
+        message: error.message,
+      })
+    }
+  }
+
 module.exports = {
   loginUserPage,
   dashboardUserPage,  
   logoutUserPage,
+  profileUserPage,
 }

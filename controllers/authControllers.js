@@ -64,7 +64,9 @@ const login = async (req, res) => {
     
   
       req.session.userName = user.userName
-      return res.render("user/index",  {user : req.session.userName, firstLogin: true, status: "none", link:"0"})
+      req.session.an = user.id
+      const dataUser = await User.findByPk(req.session.an)
+      return res.render("user/index",  {user : req.session.userName, dataUser, firstLogin: true, status: "none", link:"0"})
   
     } catch (error) {
       return res.status(500).send({ message: error.message, })
@@ -156,7 +158,7 @@ const login = async (req, res) => {
           where: { id: req.params.id, },
         }
       )
-      const delay = 3000; // 3 seconds
+      const delay = 2000; // 2 seconds
       setTimeout(() => {
         res.status(201).redirect(
           "/admin/profile/?status=success&message=Berhasil Update"
@@ -207,6 +209,62 @@ const login = async (req, res) => {
     }
   }
 
+  async function updateUserById(req, res) {
+    try {
+      const {
+        userName,
+        email,  
+        password,
+      } = req.body
+
+      const file = req.file
+      console.log(req.file)
+
+      const validFormat =
+        file.mimetype == "image/png" ||
+        file.mimetype == "image/jpg" ||
+        file.mimetype == "image/jpeg" ||
+        file.mimetype == "image/gif"
+      if (!validFormat) {
+        return res.status(400).json({
+          status: "failed",
+          message: "Wrong Image Format",
+        })
+      }
+  
+      const split = file.originalname.split(".")
+      const ext = split[split.length - 1]
+  
+      const img = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-${Date.now()}.${ext}`,
+      })
+  
+
+      const hashedPassword = bcrypt.hashSync(password, 10)
+
+      await User.update(
+        {
+          userName: userName.toLowerCase(),
+          email,
+          password: hashedPassword,
+          image: img.url,
+        },
+        {
+          where: { id: req.params.id, },
+        }
+      )
+      const delay = 2000; // 2 seconds
+      setTimeout(() => {
+        res.status(201).redirect(
+          "/users/profile/?status=success&message=Berhasil Update"
+        );
+      }, delay);
+    } catch (error) {
+      return res.status(500).send({ message: error.message, })
+    }
+  }
+
 module.exports = {
     login,
     loginUsers,
@@ -215,4 +273,5 @@ module.exports = {
     updateAdminById,
     activeUserById,
     nonActiveUserById,
+    updateUserById,
 }

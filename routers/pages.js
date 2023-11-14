@@ -8,7 +8,7 @@ const user = require("../middleware/user")
 router.get('/users/dashboard', user, userPageControllers.dashboardUserPage)
 // router.get('/about', userPageControllers.aboutPage)
 router.get('/', userPageControllers.loginUserPage)
-// router.get('/users/register', userPageControllers.registerPage)
+router.get('/users/profile', userPageControllers.profileUserPage)
 // router.get('/users/dashboard', userPageControllers.dashboardUserPage)
 router.get('/users/logout', userPageControllers.logoutUserPage)
 

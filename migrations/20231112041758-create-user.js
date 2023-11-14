@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        defaultValue: "https://ik.imagekit.io/wx1jhmfkq/1_K66ESN2Z8.png?updatedAt=1699756799404"
       },
       rencanaKerja: {
         type: Sequelize.TEXT
