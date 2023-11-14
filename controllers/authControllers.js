@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt")
 const {Admin, User} = require('../models');
+const imagekit = require("../middleware/imagekit")
+
 
 const login = async (req, res) => {
     try {
@@ -24,7 +26,9 @@ const login = async (req, res) => {
     
   
       req.session.userName = userName
-      return res.render("admin/index",  {user : req.session.userName, firstLogin: true, status: "none", link: "0"})
+      req.session.an = admin.id
+      const dataAdmin = await Admin.findByPk(req.session.an)
+      return res.render("admin/index",  {user : req.session.userName, dataAdmin, id: req.session.an, firstLogin: true, status: "none", link: "0"})
   
     } catch (error) {
       return res.status(500).send({ message: error.message, })
@@ -100,9 +104,68 @@ const login = async (req, res) => {
     }
   }
 
+  async function updateAdminById(req, res) {
+    try {
+      const {
+        userName,
+        email,  
+        password,
+      } = req.body
+
+      const file = req.file
+      console.log(req.file)
+
+      const validFormat =
+        file.mimetype == "image/png" ||
+        file.mimetype == "image/jpg" ||
+        file.mimetype == "image/jpeg" ||
+        file.mimetype == "image/gif"
+      if (!validFormat) {
+        return res.status(400).json({
+          status: "failed",
+          message: "Wrong Image Format",
+        })
+      }
+  
+      const split = file.originalname.split(".")
+      const ext = split[split.length - 1]
+  
+      const img = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-${Date.now()}.${ext}`,
+      })
+  
+
+      const hashedPassword = bcrypt.hashSync(password, 10)
+
+      console.log(userName, email, password)
+      console.log(req.params.id)
+      await Admin.update(
+        {
+          userName: userName.toLowerCase(),
+          email,
+          password: hashedPassword,
+          image: img.url,
+        },
+        {
+          where: { id: req.params.id, },
+        }
+      )
+      const delay = 3000; // 3 seconds
+      setTimeout(() => {
+        res.status(201).redirect(
+          "/admin/profile/?status=success&message=Berhasil Update"
+        );
+      }, delay);
+    } catch (error) {
+      return res.status(500).send({ message: error.message, })
+    }
+  }
+
 module.exports = {
     login,
     loginUsers,
     register,
     deleteUsers,
+    updateAdminById,
 }

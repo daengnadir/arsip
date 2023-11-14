@@ -1,4 +1,4 @@
-const {User,} = require('../../models');
+const {User, Admin} = require('../../models');
 
 const loginAdminPage = async (req, res) => {
     try {
@@ -21,7 +21,8 @@ const RegisterUserAdminPage = async (req, res) => {
 
 const dashboardAdminPage = async (req, res) => {
     try {
-      res.render("admin/index", {user : req.session.userName, link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+      const dataAdmin = await Admin.findByPk(req.session.an)
+      res.render("admin/index", {user : req.session.userName, dataAdmin, id: req.session.an, link: "1", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
     } catch (error) {
       res.status(error.statusCode || 500).json({
         message: error.message,
@@ -47,7 +48,8 @@ const dashboardAdminPage = async (req, res) => {
 
   const profileAdminPage = async (req, res) => {
     try {
-      res.render("admin/profile", {user : req.session.userName, link: "2", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+      const dataAdmin = await Admin.findByPk(req.session.an)
+      res.render("admin/profile", {user : req.session.userName, dataAdmin, id: req.session.an, link: "2", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
     } catch (error) {
       res.status(error.statusCode || 500).json({
         message: error.message,
@@ -58,7 +60,8 @@ const dashboardAdminPage = async (req, res) => {
   const UserAdminPage = async (req, res) => {
     try {
       const users = await User.findAll()
-      res.render("admin/userData", {user : req.session.userName, users, link: "3", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
+      const dataAdmin = await Admin.findByPk(req.session.an)
+      res.render("admin/userData", {user : req.session.userName, dataAdmin,id: req.session.an, users, link: "3", firstLogin: false, status:req.query.status|| "none",message: req.query.message || "none"})
     } catch (error) {
       res.status(error.statusCode || 500).json({
         message: error.message,

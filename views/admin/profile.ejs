@@ -1,6 +1,24 @@
 <%- include("../layouts/headerAdmin") %>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<% if (status == "success") { %>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: "<%= message %>",
+        timer: 1500,
+      })
+   </script>
+<% } else if (status == "failed") { %>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: "<%= message %>",
+        timer: 1500,
+      })
+   </script>
+  <% } %> 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -16,26 +34,28 @@
                       <h5 class="mb-0">Biodata Diri</h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form action="/updateAdmin/<%- dataAdmin.id %>" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">Username</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
+                          <input required ="text" name="userName" class="form-control" id="basic-default-fullname" value="<%= dataAdmin.userName %>" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company">Email</label>
-                          <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                          <input required type="text" name="email" class="form-control" id="basic-default-company" value="<%= dataAdmin.email %>" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-phone">Password</label>
                           <input
+                           required
+                            name="password"
                             type="text"
                             id="basic-default-phone"
                             class="form-control"
-                            placeholder="658 799 8941" />
+                            placeholder="********" />
                         </div>
                         <div class="mb-3">
                           <label for="formFile" class="form-label">Upload Gambar</label>
-                          <input class="form-control" type="file" id="formFile" />
+                          <input required class="form-control" name="image" type="file" id="formFile" />
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                       </form>
@@ -165,19 +185,19 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/vendor/js/menu.js"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/masonry/masonry.js"></script>
+    <script src="/assets/vendor/libs/masonry/masonry.js"></script>
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
     <!-- Page JS -->
 
